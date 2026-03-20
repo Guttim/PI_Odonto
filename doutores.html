@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Clínica</title>
+	<link rel="icon" type="image/x-icon" href="/favicon.ico">
+	
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        /* Aplica a fonte Ubuntu a toda a página */
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            padding-top: 70px; /* Adiciona espaçamento para o navbar fixo */
+        }
+        .navbar {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+        .navbar-toggler-icon {
+            background-color: #fff;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa !important;
+        }
+        .btn-link:hover {
+            color: #007bff;
+            text-decoration: underline;
+        }
+		.hover-underline {
+		  color: #ffffff;
+		  position: relative;
+		  display: inline-block;
+		}
+
+		.hover-underline::after,
+		.hover-underline::before {
+		  content: '';
+		  position: absolute;
+		  width: 100%;
+		  height: 2px;
+		  background: linear-gradient(to right, #0d6efd, #ffc107);
+		  bottom: -5px;
+		  left: 0;
+		  transform: scaleX(0);
+		  transform-origin: right;
+		  transition: transform 0.4s ease-out;
+		}
+
+		.hover-underline::before {
+		  top: -5px;
+		  transform-origin: left;
+		}
+
+		.hover-underline:hover::after,
+		.hover-underline:hover::before {
+		  transform: scaleX(1);
+		}
+		
+		.cursor-box {
+			width: 200px;
+			height: 150px;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.5rem;
+			transition: all 0.3s ease;
+			text-align: center;
+			padding: 1rem;
+			position: relative;
+			overflow: hidden;			
+			box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)
+		}
+
+		.cursor-box::before {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: -100%;
+			left: -100%;
+			transition: all 0.5s ease;
+		}
+
+		.cursor-box:hover::before {
+			top: 100%;
+			left: 100%;
+		}
+
+		.pointer {
+			cursor: pointer;
+		}
+		.pointer:hover {
+			transform: scale(1.05) rotate(2deg);
+			box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+		}
+
+    </style>
+</head>
+<body>
+    <div class="container pt-4">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand hover-underline" href="index.html">
+                    <i class="fa-solid fa-shield-dog"></i> Clínica
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa solid fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Doutores
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="">
+                                        <i class="fa-solid fa-box"></i> Novo Doutor
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="doutores.html">
+                                        <i class="fa-solid fa-boxes-stacked"></i> Gerenciar Doutores
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- Login/Logout Button -->
+                    <ul class="navbar-nav align-middle">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-user-circle me-1"></i>
+                                Teste
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('profile.edit') }}">
+                                        <i class="fa-solid fa-user me-2"></i>
+                                        Meu Perfil
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item position-relative d-flex align-items-center" href="{{ route('cart.index') }}">
+                                        <i class="fa-solid fa-cart-shopping me-2"></i>
+                                        Carrinho
+                                        <span class="badge bg-danger rounded-pill position-absolute"
+                                                style="top:8px; right:18px; font-size:0.80rem;">
+                                            10
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('orders.index') }}">
+                                        <i class="fa-solid fa-clipboard-list me-2"></i>
+                                        Meus Pedidos
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        <button type="submit" class="dropdown-item d-flex align-items-center text-danger">
+                                            <i class="fa-solid fa-right-from-bracket me-2"></i>
+                                            Sair
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main content section -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="fw-bold mb-3" style="letter-spacing:2px; color: #43c6ac;">Doutores</h1>
+            <hr style="width:60px; margin:auto; border-top:3px solid #43c6ac;">
+            <p class="lead mt-2 text-muted">Confira os doutores disponíveis!</p>
+        </div>
+    </div>
+
+    <form class="mb-4 row g-2 justify-content-center">
+        <div class="col-lg-3 col-sm-6">
+            <input type="text" class="form-control" name="search" placeholder="Buscar produtos...">
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <select name="category_id" class="form-select">
+                <option value="">Todas as categorias</option>
+                <option value="{{ $cat->id }}">
+                    Clareamento
+                </option>
+            </select>
+        </div>
+        <div class="col-lg-2 col-sm-4">
+            <input type="number" class="form-control" name="min_price" placeholder="Preço mínimo" value="{{ request('min_price') }}">
+        </div>
+        <div class="col-lg-2 col-sm-4">
+            <input type="number" class="form-control" name="max_price" placeholder="Preço máximo" value="{{ request('max_price') }}">
+        </div>
+        <div class="col-lg-2 col-sm-12">
+            <button class="btn btn-primary w-100"><i class="bi bi-funnel-fill me-1"></i> Filtrar</button>
+        </div>
+    </form>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="https://static.vecteezy.com/ti/fotos-gratis/p1/53476518-odontologia-servicos-retrato-do-bonito-preto-masculino-dentista-com-digital-tabua-dentro-maos-posando-dentro-moderno-dental-clinica-interior-profissional-africano-americano-estomatologista-medico-sorridente-as-camera-foto.jpg" 
+        class="card-img-top" alt="Roberto-Clareamento" style="height:200px; object-fit:contain;">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title fw-bold">Roberto</h5>
+                    <p class="card-text text-muted">Especializado em clareamento</p>
+                    <div>
+                        <span class="badge bg-success me-1">Clareamento</span>
+                        <span class="h5" style="color:#198754;">R$ 50,12</span>
+                            <span class="badge bg-danger ms-2">Indisponível</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex justify-content-around align-items-center">
+                    <form action="{{ route('cart.add', $product) }}" method="POST">
+                        <button type="submit" class="btn btn-success btn-sm me-2">
+                            <i class="bi bi-cart-plus"></i> Agendar
+                        </button>
+                    </form>
+                    <a href="{{ route('products.show', $product) }}" class="btn btn-outline-primary btn-sm me-2">
+                        <i class="bi bi-eye"></i> Ver detalhes
+                    </a>
+                </div>
+            </div>    
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrEpeYXy4ag6e5arIftw3FEKXyURqYnHlxyA&s" 
+        class="card-img-top" alt="Juliana-Implante" style="height:200px; object-fit:contain;">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title fw-bold">Juliana</h5>
+                    <p class="card-text text-muted">Especializada em implante</p>
+                    <div>
+                        <span class="badge bg-success me-1">Implante</span>
+                        <span class="h5" style="color:#198754;">R$ 100,12</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex justify-content-around align-items-center">
+                    <form action="{{ route('cart.add', $product) }}" method="POST">
+                        <button type="submit" class="btn btn-success btn-sm me-2">
+                            <i class="bi bi-cart-plus"></i> Agendar
+                        </button>
+                    </form>
+                    <a href="{{ route('products.show', $product) }}" class="btn btn-outline-primary btn-sm me-2">
+                        <i class="bi bi-eye"></i> Ver detalhes
+                    </a>
+                </div>
+            </div>    
+        </div>
+    </div>
+
+	<!-- Footer -->
+	<footer class="bg-primary text-center text-lg-start text-white mt-5">
+		<!-- Container de grid -->
+		<div class="container p-4">
+		  <!-- Linha de grid -->
+		  <div class="row my-4">
+			<!-- Coluna de grid -->
+			<div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+
+			  <div class="rounded-circle bg-white shadow-1-strong d-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 150px; height: 150px;">
+				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDBqG79VFw0vZkB-c6L4tLKFZ-n1_P_udx3A&s" height="70" alt="Logo Pet Shop" loading="lazy" />
+			  </div>
+
+			  <p class="text-center">Cuidando do seu sorriso com o carinho e a dedicação que ele merece!</p>
+
+			</div>
+			<!-- Coluna de grid -->
+
+			<!-- Coluna de grid -->
+			<div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+			  <h5 class="text-uppercase mb-4">Serviços</h5>
+
+			  <ul class="list-unstyled">
+				<li class="mb-2">
+				  <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Link legal 1</a>
+				</li>
+				<li class="mb-2">
+				  <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Link legal 2</a>
+				</li>
+				<li class="mb-2">
+				  <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Link legal 3</a>
+				</li>
+				<li class="mb-2">
+				  <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Link legal 4</a>
+				</li>
+			  </ul>
+			</div>
+			<!-- Coluna de grid -->
+
+			<!-- Coluna de grid -->
+			<div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+			  <h5 class="text-uppercase mb-4">Tratamentos</h5>
+
+			  <ul class="list-unstyled">
+				<li class="mb-2">
+				  <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Clareamento</a>
+				</li>
+				<li class="mb-2">
+				  <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Implante</a>
+				</li>
+				<li class="mb-2">
+				  <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Ortodontia</a>
+				</li>
+				<li class="mb-2">
+				  <a href="#!" class="text-white"><i class="fas fa-paw pe-3"></i>Aparelho Dentário</a>
+				</li>
+			  </ul>
+			</div>
+			<!-- Coluna de grid -->
+
+			<!-- Coluna de grid -->
+			<div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+			  <h5 class="text-uppercase mb-4">Contato</h5>
+
+			  <ul class="list-unstyled">
+				<li>
+				  <p><i class="fas fa-map-marker-alt pe-2"></i>São Paulo, Rua 123, Brasil</p>
+				</li>
+				<li>
+				  <p><i class="fas fa-phone pe-2"></i>+55 11 2345-6789</p>
+				</li>
+				<li>
+				  <p><i class="fas fa-envelope pe-2 mb-0"></i>contato@petshop.com.br</p>
+				</li>
+			  </ul>
+			</div>
+			<!-- Coluna de grid -->
+		  </div>
+		  <!-- Linha de grid -->
+		</div>
+		<!-- Container de grid -->
+
+		<!-- Copyright -->
+		<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+		  Enzo Bernardo & Mateus Cardoso | Laravel 12
+		</div>
+		<!-- Copyright -->
+	</footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
