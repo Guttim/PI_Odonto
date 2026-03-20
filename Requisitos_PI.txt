@@ -1,0 +1,25 @@
+RF
+Agendamento das consultas
+Reagendamento e cancelamento de consultas
+Notificações no app/e-mails do site para relembrar clientes de seus agendamentos
+Cadastro de usuário e gestão de perfil
+Níveis de usuários
+Cadastro dos doutores
+Tipos dos procedimentos e exposição dos procedimentos e serviços
+Painel de ADM
+Gestão financeira
+Controle de estoque
+
+Talvez RF
+Pagamento On-line
+
+
+
+RNF 
+Layout responsivo
+Segurança (conformidade LGPD)
+Autenticação simples e dupla
+Responsividade em até 2 segs
+Acessibilidade deficientes visuais
+Consistência em identidade visual
+Sincronização/Integração de sistemas/BDs
